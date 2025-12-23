@@ -7,4 +7,5 @@
       ]
     }
   }
+  "postStartCommand": "reSsg serve"
 }
