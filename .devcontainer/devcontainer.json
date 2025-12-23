@@ -6,6 +6,6 @@
         "ms-python.python"
       ]
     }
-  }
+  },
   "postStartCommand": "reSsg serve"
 }
