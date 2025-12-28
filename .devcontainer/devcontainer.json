@@ -13,5 +13,6 @@
       "label": "reSsg-preview"
     }
   },
-  "postCreateCommand": "reSsg > /var/log/reSsg &"
+  "postCreateCommand": "reSsg serve > /var/log/reSsg &",
+  "postAttachCommand": "echo 'Preview at 127.0.0.1:8080"
 }
