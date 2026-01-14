@@ -16,8 +16,11 @@ jobs:
       uses: jaxxstorm/action-install-gh-release@v2.1.0
       with:
         repo: rebenkoy/reSsg
+    - name: Set short sha
+      id: vars
+      run: echo "prefix=r-$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
     - name: Run reSsg
-      run: reSsg build --prefix=r-${{ github.sha }} --output=/tmp/output
+      run: reSsg build --prefix=${{ steps.vars.outputs.prefix }} --output=/tmp/output
     - name: SFTP upload
       uses: Dylan700/sftp-upload-action@latest
       with:
@@ -26,4 +29,4 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
         port: 2022
         uploads: |
-          /tmp/output => ./
+          /tmp/output => ./${{ steps.vars.outputs.prefix }}
