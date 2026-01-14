@@ -1,20 +1,25 @@
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      master
   workflow_dispatch:
-name: Deploy website on release
+name: Deploy website on push
 jobs:
   web-deploy:
     name: Deploy
-    environment: deploy
+    environment: prod
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-    - name: FTP upload
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+
+
+    - name: SFTP upload
+      uses: Dylan700/sftp-upload-action@latest
       with:
-        server: ftp.forest-school.am
-        server-dir: public_html/
+        server: ${{ vars.URL }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
+        port: 2022
+        uploads: |
+          ./ => ./
