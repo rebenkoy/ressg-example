@@ -20,7 +20,7 @@ jobs:
       id: vars
       run: echo "prefix=r-$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
     - name: Run reSsg
-      run: reSsg build --prefix=${{ steps.vars.outputs.prefix }} --output=/tmp/output
+      run: reSsg build --output=/tmp/output
     - name: SFTP upload
       uses: Dylan700/sftp-upload-action@latest
       with:
