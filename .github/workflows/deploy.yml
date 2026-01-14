@@ -17,7 +17,7 @@ jobs:
       with:
         repo: rebenkoy/reSsg
     - name: Run reSsg
-      run: reSsg --help
+      run: reSsg build --build.prefix=r-${{ github.sha }} --build.output=/tmp/output
     - name: SFTP upload
       uses: Dylan700/sftp-upload-action@latest
       with:
@@ -26,4 +26,4 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
         port: 2022
         uploads: |
-          ./ => ./
+          /tmp/output => ./
