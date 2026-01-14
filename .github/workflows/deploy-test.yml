@@ -1,23 +1,18 @@
 on:
   push:
     branches:
-      master
+      test
   workflow_dispatch:
 name: Deploy website on push
 jobs:
   web-deploy:
     name: Deploy
-    environment: prod
+    environment: test
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Print secret username
-      run: echo '${{ secrets.FTP_USERNAME }}' | sed 's/./& /g'
-
-    - name: Print secret password
-      run: echo '${{ secrets.FTP_PASSWORD }}' | sed 's/./& /g'
 
     - name: SFTP upload
       uses: Dylan700/sftp-upload-action@latest
