@@ -3,7 +3,7 @@ on:
     branches:
       - 'master'
   workflow_dispatch:
-name: Deploy website on push
+name: Deploy to prod
 jobs:
   web-deploy:
     name: Deploy
