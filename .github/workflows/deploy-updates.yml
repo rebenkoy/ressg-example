@@ -17,8 +17,7 @@ jobs:
         run: echo "prefix=r-$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
       - name: Set comment text
         id: comment_gen
-        run: |
-          echo 'comment="\n[![Preview Badge]](${{ vars.PREVIEW_URL }}/${{ steps.vars.outputs.prefix }}/)\n\n[Preview Badge]: https://img.shields.io/badge/>>Preview<<-1f883d?style=for-the-badge"' >> $GITHUB_OUTPUT
+        run: echo 'comment=<a href="${{ vars.PREVIEW_URL }}/${{ steps.vars.outputs.prefix }}/">![Preview Badge](https://img.shields.io/badge/>>Preview<<-1f883d?style=for-the-badge)</a>' >> $GITHUB_OUTPUT
       - name: pull-request-action
         uses: vsoch/pull-request-action@master
         env:
