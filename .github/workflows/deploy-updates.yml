@@ -18,11 +18,27 @@ jobs:
       - name: pull-request-action
         uses: vsoch/pull-request-action@master
         env:
+          PULL_REQUEST_TITLE: "Updates"
+          PULL_REQUEST_BODY: |
+            [![Preview Badge]](${{ vars.PREVIEW_URL }}/${{ steps.vars.outputs.prefix }}/)
+            
+            <!---------------------------------[ Buttons ]--------------------------------->
+            [Preview Badge]: https://img.shields.io/badge/>>Preview<<-1f883d?style=for-the-badge
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PULL_REQUEST_BODY: "Preview located here: ${{ vars.PREVIEW_URL }}/${{ steps.vars.outputs.prefix }}/"
           BRANCH_PREFIX: ""
           PULL_REQUEST_BRANCH: "master"
           PULL_REQUEST_UPDATE: true
+        id: pr
+      - name: Create comment
+        uses: peter-evans/create-or-update-comment@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ steps.pr.outputs.pull_request_number }}
+          body: |
+            [![Preview Badge]](${{ vars.PREVIEW_URL }}/${{ steps.vars.outputs.prefix }}/)
+            
+            <!---------------------------------[ Buttons ]--------------------------------->
+            [Preview Badge]: https://img.shields.io/badge/>>Preview<<-1f883d?style=for-the-badge
       - name: Get reSsg
         uses: jaxxstorm/action-install-gh-release@v2.1.0
         with:
