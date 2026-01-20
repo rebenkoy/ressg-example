@@ -22,7 +22,7 @@ jobs:
           PULL_REQUEST_BODY: "Preview located here: ${{ vars.PREVIEW_URL }}/${{ steps.vars.outputs.prefix }}/"
           BRANCH_PREFIX: ""
           PULL_REQUEST_BRANCH: "master"
-          PASS_IF_EXISTS: false
+          PULL_REQUEST_UPDATE: true
       - name: Get reSsg
         uses: jaxxstorm/action-install-gh-release@v2.1.0
         with:
