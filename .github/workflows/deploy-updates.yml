@@ -43,8 +43,8 @@ jobs:
         run: |
           echo '${{ steps.find_comment.outputs.comment-body }}' > /tmp/outdated-comment;
           sed -E 's/>>Preview<<-1f883d/>>Outdated Preview<<-e76c1a/' -i /tmp/outdated-comment;
-          sed 's/${{ steps.vars.outputs.marker }}//g' -i /tmp/outdated-comment;
-          echo "res=${cat /tmp/outdated-comment}" >> $GITHUB_OUTPUT;
+          perl -pe 's|\Q${{ steps.vars.outputs.marker }}\E||g' -i /tmp/outdated-comment
+          echo "res=$(cat /tmp/outdated-comment)" >> $GITHUB_OUTPUT;
       - name: Update outdated comment
         if: steps.find_comment.outputs.comment-id != 0
         uses: peter-evans/create-or-update-comment@v5
