@@ -1,0 +1,39 @@
+on:
+  push:
+    branches:
+      - 'updates'
+  workflow_dispatch:
+name: Deploy website on push
+jobs:
+  web-deploy:
+    name: Deploy
+    environment: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set short sha
+        id: vars
+        run: echo "prefix=r-$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+      - name: pull-request-action
+        uses: vsoch/pull-request-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PULL_REQUEST_BODY: "Preview located here: ${{ vars.PREVIEW_URL }}/${{ steps.vars.outputs.prefix }}/"
+          BRANCH_PREFIX: ""
+          PULL_REQUEST_BRANCH: "master"
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Get reSsg
+        uses: jaxxstorm/action-install-gh-release@v2.1.0
+        with:
+          repo: rebenkoy/reSsg
+      - name: Run reSsg
+        run: reSsg build --output=/tmp/output
+      - name: SFTP upload
+        uses: Dylan700/sftp-upload-action@latest
+        with:
+          server: ${{ vars.URL }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 2022
+          uploads: |
+            /tmp/output => ./${{ steps.vars.outputs.prefix }}

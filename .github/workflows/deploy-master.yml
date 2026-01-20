@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      master
+      - 'master'
   workflow_dispatch:
 name: Deploy website on push
 jobs:
@@ -16,9 +16,6 @@ jobs:
       uses: jaxxstorm/action-install-gh-release@v2.1.0
       with:
         repo: rebenkoy/reSsg
-    - name: Set short sha
-      id: vars
-      run: echo "prefix=r-$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
     - name: Run reSsg
       run: reSsg build --output=/tmp/output
     - name: SFTP upload
@@ -29,4 +26,4 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
         port: 2022
         uploads: |
-          /tmp/output => ./${{ steps.vars.outputs.prefix }}
+          /tmp/output => ./
