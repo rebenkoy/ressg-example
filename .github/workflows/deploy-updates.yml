@@ -15,15 +15,15 @@ jobs:
       - name: Set short sha
         id: vars
         run: echo "prefix=r-$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+      - name: Set comment text
+        id: comment_gen
+        run: |
+          echo 'comment="\n[![Preview Badge]](${{ vars.PREVIEW_URL }}/${{ steps.vars.outputs.prefix }}/)\n\n[Preview Badge]: https://img.shields.io/badge/>>Preview<<-1f883d?style=for-the-badge"' >> $GITHUB_OUTPUT
       - name: pull-request-action
         uses: vsoch/pull-request-action@master
         env:
           PULL_REQUEST_TITLE: "Updates"
-          PULL_REQUEST_BODY: |
-            [![Preview Badge]](${{ vars.PREVIEW_URL }}/${{ steps.vars.outputs.prefix }}/)
-            
-            <!---------------------------------[ Buttons ]--------------------------------->
-            [Preview Badge]: https://img.shields.io/badge/>>Preview<<-1f883d?style=for-the-badge
+          PULL_REQUEST_BODY: ${{ steps.comment_gen.outputs.comment }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH_PREFIX: ""
           PULL_REQUEST_BRANCH: "master"
@@ -34,11 +34,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ steps.pr.outputs.pull_request_number }}
-          body: |
-            [![Preview Badge]](${{ vars.PREVIEW_URL }}/${{ steps.vars.outputs.prefix }}/)
-            
-            <!---------------------------------[ Buttons ]--------------------------------->
-            [Preview Badge]: https://img.shields.io/badge/>>Preview<<-1f883d?style=for-the-badge
+          body: ${{ steps.comment_gen.outputs.comment }}
       - name: Get reSsg
         uses: jaxxstorm/action-install-gh-release@v2.1.0
         with:
