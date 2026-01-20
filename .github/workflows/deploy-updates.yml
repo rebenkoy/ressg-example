@@ -10,6 +10,8 @@ jobs:
     environment: test
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Set short sha
         id: vars
         run: echo "prefix=r-$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
@@ -20,8 +22,6 @@ jobs:
           PULL_REQUEST_BODY: "Preview located here: ${{ vars.PREVIEW_URL }}/${{ steps.vars.outputs.prefix }}/"
           BRANCH_PREFIX: ""
           PULL_REQUEST_BRANCH: "master"
-      - name: Checkout
-        uses: actions/checkout@v4
       - name: Get reSsg
         uses: jaxxstorm/action-install-gh-release@v2.1.0
         with:
