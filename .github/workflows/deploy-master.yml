@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - 'master'
+      - 'NO'
   workflow_dispatch:
 name: Deploy to prod
 jobs:
