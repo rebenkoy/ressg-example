@@ -2,7 +2,6 @@ on:
   push:
     branches:
       - 'updates'
-  workflow_dispatch:
 name: Deploy to test
 jobs:
   web-deploy:
