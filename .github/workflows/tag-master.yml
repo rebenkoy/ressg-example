@@ -26,4 +26,4 @@ jobs:
           PRERELEASE: false
   call-deploy:
     needs: build
-    uses: ./.github/workflows/deploy-prod
+    uses: ./.github/workflows/deploy-prod.yml
