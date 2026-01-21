@@ -1,7 +1,7 @@
 on:
   push:
-    tags:
-      - '*'
+    branches:
+      - 'NO'
   workflow_dispatch:
 name: Deploy to prod
 jobs:
