@@ -47,12 +47,13 @@ jobs:
       if: ${{ github.event_name == 'workflow_run' }}
       run: |
         unzip "${{ runner.temp }}/artifacts/tag.zip" -d "${{ runner.temp }}/artifacts"
-        echo "tag=$(cat ${{ runner.temp }}/artifacts)" >> $GITHUB_OUTPUT
+        cat ${{ runner.temp }}/artifacts/tag
+        echo "tag=$(cat ${{ runner.temp }}/artifacts/tag)" >> $GITHUB_OUTPUT
     - name: Checkout generated release
       if: ${{ github.event_name == 'workflow_run' }}
       uses: actions/checkout@v4
       with:
-        ref: refs/tags/${{ steps.get_tag.outputs.tag }}
+        ref: ${{ steps.get_tag.outputs.tag }}
     - name: Get reSsg
       uses: jaxxstorm/action-install-gh-release@v2.1.0
       with:
