@@ -1,5 +1,9 @@
 on:
-  workflow_call:
+  workflow_run:
+    types:
+      - completed
+    workflows:
+      - Create release
   workflow_dispatch:
 name: Deploy to prod
 jobs:
