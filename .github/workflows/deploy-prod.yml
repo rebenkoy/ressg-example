@@ -1,7 +1,7 @@
 on:
   release:
     types:
-      - created
+      - published
   workflow_dispatch:
 name: Deploy to prod
 jobs:
