@@ -17,5 +17,5 @@ static_path = "static"
 static_output = "static"
 
 [build.sass]
-source = "this does not work yet"
+source = "sass"
 destination = "css"
