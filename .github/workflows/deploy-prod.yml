@@ -47,7 +47,7 @@ jobs:
       if: ${{ github.event_name == 'workflow_run' }}
       run: |
         unzip "${{ runner.temp }}/artifacts/tag.zip" -d "${{ runner.temp }}/artifacts"
-        echo "tag=$(cat ${{ runner.temp }}/artifacts" >> $GITHUB_OUTPUT
+        echo "tag=$(cat ${{ runner.temp }}/artifacts)" >> $GITHUB_OUTPUT
     - name: Checkout generated release
       if: ${{ github.event_name == 'workflow_run' }}
       uses: actions/checkout@v4
