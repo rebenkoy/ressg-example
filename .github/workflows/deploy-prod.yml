@@ -12,8 +12,47 @@ jobs:
     environment: prod
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
+    - name: Checkout target
+      if: ${{ github.event_name == 'workflow_dispatch' }}
       uses: actions/checkout@v4
+
+    - name: 'Download artifact'
+      if: ${{ github.event_name == 'workflow_run' }}
+      uses: actions/github-script@v8
+      with:
+        script: |
+          let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
+             owner: context.repo.owner,
+             repo: context.repo.repo,
+             run_id: context.payload.workflow_run.id,
+          });
+          let matchArtifact = allArtifacts.data.artifacts.filter((artifact) => {
+            return artifact.name == "tag"
+          })[0];
+          let download = await github.rest.actions.downloadArtifact({
+             owner: context.repo.owner,
+             repo: context.repo.repo,
+             artifact_id: matchArtifact.id,
+             archive_format: 'zip',
+          });
+          const fs = require('fs');
+          const path = require('path');
+          const temp = '${{ runner.temp }}/artifacts';
+          if (!fs.existsSync(temp)){
+            fs.mkdirSync(temp);
+          }
+          fs.writeFileSync(path.join(temp, 'tag.zip'), Buffer.from(download.data));
+    - name: 'Unzip artifact'
+      id: get_tag
+      if: ${{ github.event_name == 'workflow_run' }}
+      run: |
+        unzip "${{ runner.temp }}/artifacts/tag.zip" -d "${{ runner.temp }}/artifacts"
+        echo "tag=$(cat ${{ runner.temp }}/artifacts" >> $GITHUB_OUTPUT
+    - name: Checkout generated release
+      if: ${{ github.event_name == 'workflow_run' }}
+      uses: actions/checkout@v4
+      with:
+        ref: refs/tags/${{ steps.get_tag.outputs.tag }}
     - name: Get reSsg
       uses: jaxxstorm/action-install-gh-release@v2.1.0
       with:
