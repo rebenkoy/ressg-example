@@ -24,3 +24,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
           TAG_PREFIX: v
           PRERELEASE: false
+  call-deploy:
+    needs: build
+    uses: ./.github/workflows/deploy-prod

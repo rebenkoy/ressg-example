@@ -1,12 +1,9 @@
 on:
-  push:
-    tags:
-      - '*'
+  workflow_call:
   workflow_dispatch:
 name: Deploy to prod
 jobs:
   web-deploy:
-    if: github.event.base_ref == 'refs/heads/master'
     name: Deploy
     environment: prod
     runs-on: ubuntu-latest
