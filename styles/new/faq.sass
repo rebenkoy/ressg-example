@@ -1,0 +1,58 @@
+@use "colorcshemes"
+
+$plus_width: 3px
+$plus_size: 1.5em
+$padding-y: 20px
+$padding-x: 40px
+
+.faq__entry
+  @extend .les-theme-card-white
+  background-color: var(--card-bg-color)
+  color: var(--card-fg-color)
+  border-radius: 8px
+  border: 1px solid var(--les-color-light-green)
+
+  margin-bottom: 1em
+  &:last-child
+    margin-bottom: 0
+
+.faq__question
+  padding: $padding-y $padding-x
+  position: relative
+  list-style: none
+  cursor: pointer
+  border-radius: 8px
+
+  &:hover
+    background: linear-gradient(90deg, var(--les-color-new-white) 50%, var(--les-color-lightest-green) 100%)
+  &::after
+    position: absolute
+    right: $padding-x
+    top: calc(50% - $plus_width / 2)
+    content: ""
+    background-color: var(--les-color-dark-green)
+    width: $plus_size
+    height: $plus_width
+    //border: 1px solid black
+    display: flex
+    transition-duration: 0.3s
+
+  &::before
+    position: absolute
+    right: calc($padding-x + $plus_size / 2 - $plus_width / 2)
+    top: calc(50% - $plus_size / 2)
+    content: ""
+    background-color: var(--les-color-dark-green)
+    width: $plus_width
+    height: $plus_size
+    //border: 1px solid black
+    display: flex
+    transition-duration: 0.3s
+
+.faq__entry[open] .faq__question
+  &::before, &::after
+    transform: rotate(45deg)
+
+.faq__answer
+  padding: 0 $padding-x
+  padding-bottom: $padding-y

@@ -1,0 +1,218 @@
+{{ sass("styles/new/slide.sass") }}
+
+<div {% if data.id %}id="{{ data.id }}"{{ push_to_array("menu", data.id) }}{% endif %}
+        class="slide les-theme-card-beige {{ data.theme }} " style='
+    --grid-template-areas-all: {{ data.grid }};
+    {% if data.grid.phone %}--grid-template-areas-phone: {{ data.grid.phone }}{% endif %};
+    {% if data.grid.tablet %}--grid-template-areas-tablet: {{ data.grid.tablet }}{% endif %};
+    {% if data.grid.desktop %}--grid-template-areas-desktop: {{ data.grid.desktop }}{% endif %};
+    {% if data.styles %}
+    {% for k in data.styles %}
+    {{ k }}: {{ data.styles[k] }};
+    {% endfor %}
+    {% endif %}
+    '>
+    {% if data.background %}
+    <div class="slide__background" style="background-image: url({{ static(data.background) }});"></div>
+    {% endif %}
+
+    {% if data.header %}
+    {% set collection = data("header") %}
+    {% set len = collection | length %}
+    {% set count = 1 %}
+    {% for header in collection %}
+    <h{% if header.level %}{{ header.level }}{% else %}1{% endif%} class="slide__header" style='--grid-area: header{% if len != 1 %}-{{ count }}{% endif %}'>
+        {% if header.preimage %}
+        <img src="{{ static(header.preimage) }}">
+        {% endif %}
+        <span>{{ header }}</span>
+        {% if header.postimage %}
+            <img src="{{ static(header.postimage) }}">
+        {% endif %}
+    </h{% if header.level %}{{ header.level }}{% else %}1{% endif%}>
+    {% set count = count + 1 %}
+    {% endfor %}
+    {% endif %}
+
+    {% if data.content %}
+    {% set collection = data("content") %}
+    {% set len = collection | length %}
+    {% set count = 1 %}
+    {% for content in collection %}
+    <div class="slide__content" style='--grid-area: content{% if len != 1 %}-{{ count }}{% endif %}'>
+        {{ content }}
+    </div>
+    {% set count = count + 1 %}
+    {% endfor %}
+    {% endif %}
+
+    {% if data.img %}
+    {% set collection = data("img") %}
+    {% set len = collection | length %}
+    {% set count = 1 %}
+    {% for img in collection %}
+    <img  src="{{ static(img) }}" class="slide__img" style='
+            --grid-area: img{% if len != 1 %}-{{ count }}{% endif %};
+            {% if img.width %}--img-width: {{ img.widht }};{% endif %}
+            {% if img.height %}--img-height: {{ img.height }};{% endif %}
+            '>
+    {% set count = count + 1 %}
+    {% endfor %}
+    {% endif %}
+
+    {% if data.disclaimer %}
+    {% set collection = data("disclaimer") %}
+    {% set len = collection | length %}
+    {% set count = 1 %}
+    {% for disclaimer in collection %}
+    <div class="slide__disclaimer" style='--grid-area: disclaimer{% if len != 1 %}-{{ count }}{% endif %}'>
+        {{ disclaimer }}
+    </div>
+    {% set count = count + 1 %}
+    {% endfor %}
+    {% endif %}
+
+    {% if data.card %}
+    {% set collection = data("card") %}
+    {% set len = collection | length %}
+    {% set count = 1 %}
+    {% for card in collection %}
+    <div class="slide__card" style='--grid-area: card{% if len != 1 %}-{{ count }}{% endif %}'>
+        <div class="card__content">
+            {{ card }}
+        </div>
+    </div>
+    {% set count = count + 1 %}
+    {% endfor %}
+    {% endif %}
+
+    {% if data.cards %}
+    {% set collection = data("cards") %}
+    {% set len = collection | length %}
+    {% set count = 1 %}
+    {% for cards in collection %}
+    <div class="slide__cards" style='
+            --grid-area: cards{% if len != 1 %}-{{ count }}{% endif %};
+            {% if cards.cols %}
+            {% if cards.cols.desktop %}--slide-cards-cols-desktop: {{ cards.cols.desktop }};{% endif %}
+            {% if cards.cols.tablet %}--slide-cards-cols-tablet: {{ cards.cols.tablet }};{% endif %}
+            {% if cards.cols.phone %}--slide-cards-cols-phone: {{ cards.cols.phone }};{% endif %}
+            {% endif %}
+            '>
+        {{ blocks(cards, cards.template) }}
+    </div>
+    {% set count = count + 1 %}
+    {% endfor %}
+    {% endif %}
+
+    {% if data.button %}
+    {% set collection = data("button") %}
+    {% set len = collection | length %}
+    {% set count = 1 %}
+    {% for button in collection %}
+    <a target="blank" href="{{ button.link }}" class="slide__button {{ button.theme }}" style='--grid-area: button{% if len != 1 %}-{{ count }}{% endif %}'>
+        {{ button }}
+    </a>
+    {% set count = count + 1 %}
+    {% endfor %}
+    {% endif %}
+
+    {% if data["overflow-img"] %}
+    {% set collection = data("overflow-img") %}
+    {% set len = collection | length %}
+    {% set count = 1 %}
+    {% for img in collection %}
+    <div class="slide__overflow-img" style='--grid-area: overflow-img{% if len != 1 %}-{{ count }}{% endif %};
+            {% if img.phone %}
+            {% if img.phone.width %}--slide-overflow-img-phone-width: {{ img.phone.width }}{% endif %};
+            {% if img.phone.overflow %}
+            {% if img.phone.overflow.left %}--slide-overflow-img-phone-overflow-left: -{{ img.phone.overflow.left }}{% endif %};
+            {% if img.phone.overflow.top %}--slide-overflow-img-phone-overflow-top: -{{ img.phone.overflow.top }}{% endif %};
+            {% if img.phone.overflow.right %}--slide-overflow-img-phone-overflow-right: -{{ img.phone.overflow.right }}{% endif %};
+            {% if img.phone.overflow.bottom %}--slide-overflow-img-phone-overflow-bottom: -{{ img.phone.overflow.bottom }}{% endif %};
+            {% endif %}
+            {% if img.phone.position %}
+            {% if img.phone.position.x %}--slide-overflow-img-phone-position-x: {{ img.phone.position.x }}{% endif %};
+            {% if img.phone.position.y %}--slide-overflow-img-phone-position-y: {{ img.phone.position.y }}{% endif %};
+            {% endif %}
+            {% endif %}
+            {% if img.tablet %}
+            {% if img.tablet.width %}--slide-overflow-img-tablet-width: {{ img.tablet.width }}{% endif %};
+            {% if img.tablet.overflow %}
+            {% if img.tablet.overflow.left %}--slide-overflow-img-tablet-overflow-left: -{{ img.tablet.overflow.left }}{% endif %};
+            {% if img.tablet.overflow.top %}--slide-overflow-img-tablet-overflow-top: -{{ img.tablet.overflow.top }}{% endif %};
+            {% if img.tablet.overflow.right %}--slide-overflow-img-tablet-overflow-right: -{{ img.tablet.overflow.right }}{% endif %};
+            {% if img.tablet.overflow.bottom %}--slide-overflow-img-tablet-overflow-bottom: -{{ img.tablet.overflow.bottom }}{% endif %};
+            {% endif %}
+            {% if img.tablet.position %}
+            {% if img.tablet.position.x %}--slide-overflow-img-tablet-position-x: {{ img.tablet.position.x }}{% endif %};
+            {% if img.tablet.position.y %}--slide-overflow-img-tablet-position-y: {{ img.tablet.position.y }}{% endif %};
+            {% endif %}
+            {% endif %}
+            {% if img.desktop %}
+            {% if img.desktop.width %}--slide-overflow-img-desktop-width: {{ img.desktop.width }}{% endif %};
+            {% if img.desktop.overflow %}
+            {% if img.desktop.overflow.left %}--slide-overflow-img-desktop-overflow-left: -{{ img.desktop.overflow.left }}{% endif %};
+            {% if img.desktop.overflow.top %}--slide-overflow-img-desktop-overflow-top: -{{ img.desktop.overflow.top }}{% endif %};
+            {% if img.desktop.overflow.right %}--slide-overflow-img-desktop-overflow-right: -{{ img.desktop.overflow.right }}{% endif %};
+            {% if img.desktop.overflow.bottom %}--slide-overflow-img-desktop-overflow-bottom: -{{ img.desktop.overflow.bottom }}{% endif %};
+            {% endif %}
+            {% if img.desktop.position %}
+            {% if img.desktop.position.x %}--slide-overflow-img-desktop-position-x: {{ img.desktop.position.x }}{% endif %};
+            {% if img.desktop.position.y %}--slide-overflow-img-desktop-position-y: {{ img.desktop.position.y }}{% endif %};
+            {% endif %}
+            {% endif %}
+                    '>
+        <div class="overflow-img__container">
+            <img src="{{ static(data["overflow-img"]) }}">
+        </div>
+    </div>
+    {% set count = count + 1 %}
+    {% endfor %}
+    {% endif %}
+
+    {% if data.subslides %}
+    {% set collection = data("subslides") %}
+    {% set len = collection | length %}
+    {% set count = 1 %}
+    {% for subslides in collection %}
+    {% if subslides and subslides.template %}
+    <div class="slide__subslides" style='--grid-area: subslides{% if len != 1 %}-{{ count }}{% endif %}'>
+        {{ blocks(subslides, subslides.template) }}
+    </div>
+    {% endif %}
+    {% set count = count + 1 %}
+    {% endfor %}
+    {% endif %}
+
+    {% if data.slider %}
+    {% set collection = data("slider") %}
+    {% set len = collection | length %}
+    {% set count = 1 %}
+    {% for slider in collection %}
+    {% if slider and slider.template %}
+    <div class="slide__slider" data-slider="active" style='--grid-area: slider{% if len != 1 %}-{{ count }}{% endif %}'>
+        <div class="slider__content{% if slider.class %}{% for c in slider("class") %} {{ c }}{% endfor %}{% endif %}" {% if slider.attrs %}{% for k in slider.attrs %}{{ k }}="{{ slider.attrs[k] }}"{% endfor %}{% endif %}>
+            {{ blocks(slider, slider.template) }}
+        </div>
+        <div class="slider__controls">
+        </div>
+    </div>
+    {% endif %}
+    {% set count = count + 1 %}
+    {% endfor %}
+    {% endif %}
+
+
+    {% if data.link %}
+    {% set collection = data("link") %}
+    {% set len = collection | length %}
+    {% set count = 1 %}
+    {% for link in collection %}
+    <a href="{{ link.url }}" class="slide__link" style='--grid-area: link{% if len != 1 %}-{{ count }}{% endif %}' {% if link.onclick %}onclick="{{ link.onclick }}"{% endif %}>
+        {{ link }}
+    </a>
+    {% set count = count + 1 %}
+    {% endfor %}
+    {% endif %}
+</div>

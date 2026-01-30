@@ -1,0 +1,10 @@
+{{ sass("styles/new/team-cards.sass") }}
+
+<div class="team__card les-theme-border-bright">
+    <img class="team__img" src="{{ static(data.image) }}" alt="{{ data.image_replacement }}">
+    <div class="team__title">
+        <div class="team__name">{{ data.name }}</div>
+        <div class="team__job">{{ data.job }}</div>
+    </div>
+    <div class="team__notes">{{ data.about }}</div>
+</div>

@@ -1,0 +1,45 @@
+$header-background-color: rgb(2,5,2,0.60)
+$header-color: #fff
+
+@mixin sty
+  #header
+    background-color: $header-background-color
+    position: fixed
+    z-index: 9999
+    width: 100%
+    display: grid
+    gap: 1em
+    grid-template-columns: auto 1fr auto
+    grid-template-areas: "logo menu enroll"
+    padding: .6em
+    padding-right: 1em
+    .main-menu__item
+      color: $header-color
+      height: 100%
+      align-content: center
+
+  .header__logo
+    width: 50px
+    grid-area: logo
+    justify-self: center
+
+
+
+  .header__enroll
+    grid-area: enroll
+    justify-self: right
+
+  .main-menu
+    display: none
+
+  .main-menu__box
+    grid-area: menu
+    display: flex
+    gap: 2em
+    justify-content: center
+    align-items: center
+
+  .header__enroll
+    display: flex
+    justify-content: space-around
+    flex-direction: column

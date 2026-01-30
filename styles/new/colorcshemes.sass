@@ -1,0 +1,85 @@
+:root
+  --les-color-white: var(--les-color-new-white)
+  --les-color-black: var(--les-color-new-black)
+
+  --les-color-beige: #fff6e8
+  --les-color-new-white: #FFFEFC
+  --les-color-new-black: #161C17
+  --les-color-additional-gray: #6B736D
+  --les-color-dark-green: #3B5E40
+  --les-color-medium-green: #4D7B57
+  --les-color-light-green: #9FC6A8
+  --les-color-lightest-green: #D6E6D9
+  --les-color-accent-bright: #F19501
+  --les-color-accent-light: #F5D29A
+  --les-color-additional-background: #FFFCF7
+  --les-color-basement: #B9D3BF
+  --les-color-red: #F59A9A
+  --les-color-dark-red: #7B4D4D
+  --les-color-transparent: rgba(1, 1, 1, 0.1)
+
+  --les-font: 'IBM Plex Sans'
+  font-family: var(--les-font), 'sans-serif'
+
+.les-theme-dark-green
+  --base-bg-color: var(--les-color-dark-green)
+  --base-fg-color: var(--les-color-white)
+
+.les-theme-medium-green
+  --base-bg-color: var(--les-color-medium-green)
+  --base-fg-color: var(--les-color-white)
+
+.les-theme-light-green
+  --base-bg-color: var(--les-color-light-green)
+  --base-fg-color: var(--les-color-black)
+
+.les-theme-lightest-green
+  --base-bg-color: var(--les-color-lightest-green)
+  --base-fg-color: var(--les-color-black)
+
+.les-theme-card-beige
+  --card-bg-color: var(--les-color-beige)
+  --card-fg-color: var(--les-color-black)
+  --card-bg-color-hover: var(--les-color-white)
+  --card-fg-color-hover: var(--les-color-black)
+
+.les-theme-card-white
+  --card-bg-color: var(--les-color-white)
+  --card-fg-color: var(--les-color-black)
+
+.les-theme-border-bright
+  --border-color: var(--les-color-accent-bright)
+
+.les-theme-border-secondary
+  --border-color: var(--les-color-lightest-green)
+
+.les-theme-border-alternating
+  &:nth-child(even)
+    --border-color: var(--les-color-light-green)
+  &:nth-child(odd)
+    --border-color: var(--les-color-accent-bright)
+
+.accent-light-to-bright
+  --bg-color: var(--les-color-accent-light)
+  --fg-color: var(--les-color-new-black)
+  --br-color: none
+  &:hover
+    --bg-color: var(--les-color-accent-bright)
+    --fg-color: var(--les-color-new-white)
+
+.white-to-green
+  --bg-color: var(--les-color-new-white)
+  --fg-color: var(--les-color-new-black)
+  --br-color: var(--les-color-dark-green)
+  &:hover
+    --bg-color: var(--les-color-dark-green)
+    --fg-color: var(--les-color-new-white)
+
+.transparent-to-white
+  --bg-color: var(--les-color-transparent)
+  --fg-color: var(--les-color-new-white)
+  --br-color: var(--les-color-new-white)
+  &:hover
+    --bg-color: var(--les-color-new-white)
+    --fg-color: var(--les-color-accent-bright)
+    --br-color: var(--les-color-accent-bright)

@@ -1,0 +1,131 @@
+@mixin sty
+  $burger-bar-spacing: 0.4em
+  $burger-bar-height: 0.1em
+  $burger-bar-color: #fff
+  $burger-inside-color: #fff
+  $burger-transition-duration: .5s
+  $burger-background-color: rgb(2,5,2,0.60)
+  $burger-item-hover-color: rgb(2,5,2,0.60)
+  $burger-font: 'IBMPlexSans-Bold'
+  $burger-icon-max-height: 100px
+
+  // header
+  #header
+    position: fixed
+    z-index: 9999
+    width: 100%
+    display: grid
+    grid-template-columns: .6em repeat(3, 1fr) .6em
+    grid-template-areas: "a icon logo enroll b" "menu menu menu menu menu"
+    padding-top: .8em
+
+  .header__logo
+    width: 50px
+    grid-area: logo
+    justify-self: center
+
+  .header__enroll
+    grid-area: enroll
+    justify-self: right
+
+  // burger
+  .main-menu
+    grid-area: icon
+    justify-self: left
+
+  .main-menu__btn-container
+    display: flex
+    flex-direction: column
+
+  .main-menu__btn
+    width: 100%
+    cursor: pointer
+    display: flex
+    align-items: center
+    flex-direction: column
+    margin-bottom: 0
+
+  .main-menu__icon-restricter
+    overflow: hidden
+    padding-top: $burger-bar-spacing + $burger-bar-height
+    width: 100%
+    height: 2*$burger-bar-height + $burger-bar-spacing
+    margin-bottom: $burger-bar-spacing
+
+  .main-menu__icon
+    display: block
+    position: relative
+    width: 100%
+    height: $burger-bar-height
+    background-color: $burger-bar-color
+    transition-duration: $burger-transition-duration
+
+    &::before
+      content: ''
+      top: -$burger-bar-spacing
+      display: block
+      position: absolute
+      width: 100%
+      height: $burger-bar-height
+      background-color: $burger-bar-color
+      transition-duration: $burger-transition-duration
+    &::after
+      content: ''
+      top: $burger-bar-spacing
+      display: block
+      position: absolute
+      width: 100%
+      height: $burger-bar-height
+      background-color: $burger-bar-color
+      transition-duration: $burger-transition-duration
+
+  .main-menu__label
+    color: $burger-bar-color
+  #main-menu__toggle
+    display: none
+    &:checked
+      ~ .main-menu__btn
+        &>.main-menu__icon-restricter>.main-menu__icon
+          background-color: rgba(0,0,0,0)
+          &::before
+            top: 0
+            transform: rotate(45deg)
+          &::after
+            top: 0
+            transform: rotate(-45deg)
+
+  #header:has(#main-menu__toggle:checked)
+    height: 100vh
+    &>.main-menu__box
+      display: block
+      visibility: visible
+      //transition-duration: $burger-transition-duration
+      //transform: translateX(0)
+
+  .main-menu__box
+    grid-area: menu
+    height: calc(100vh + $burger-icon-max-height)
+    display: none
+    visibility: hidden
+    width: fit-content
+    list-style: none
+    background-color: $burger-background-color
+    font-family: $burger-font
+    box-sizing: content-box
+    padding-top: $burger-icon-max-height
+    margin-top: -$burger-icon-max-height
+    //transition-duration: $burger-transition-duration
+    //transform: translateX(-100%)
+
+  .main-menu__item
+    outline: 0
+    display: block
+    padding: 5px 24px
+    color: $burger-inside-color
+    font-size: 20px
+    font-weight: 500
+    text-decoration: none
+    transition-duration: 0s !important
+    &:hover
+      color: $burger-inside-color
+      background-color: $burger-item-hover-color

@@ -1,0 +1,114 @@
+{{ sass("styles/new/colorcshemes.sass") }}
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+    <meta charset="UTF-8">
+    <title>Летняя школа &quot;Лес&quot; &#8211; Образовательный лагерь для подростков 14-18 лет</title>
+
+    <!-- This is actually needed -->
+    <link href='https://fonts.googleapis.com/css?family=IBM Plex Sans' rel='stylesheet'>
+    {{ include_sass() }}
+    <!-- ordering on masonry and slider is important -->
+    <script src="{{ static("new/masonry.js") }}"></script>
+    <script src="{{ static("new/slider.js") }}"></script>
+</head>
+<body class="home wp-singular page-template-default page page-id-2 logged-in wp-theme-ToPwWw rttpg rttpg-7.8.4 radius-frontend rttpg-body-wrap rttpg-flaticon twentyseventeen-front-page has-header-image page-two-column colors-light">
+<div class="site-content-contain">
+    <div id="content" class="site-content">
+        <div class="w100">
+            {{ sass("styles/new/header.sass") }}
+            <header id="header">
+                <div class="main-menu__box">
+                    {% for item in collected_array("menu") %}
+                    {% if item.menu %}
+                    <a class="main-menu__item" href="#{{ item }}">{{ item.menu }}</a>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div class="main-menu">
+                    <input id="main-menu__toggle" type="checkbox"/>
+                    <label class="main-menu__btn" for="main-menu__toggle">
+                                <span class="main-menu__icon-restricter">
+                                    <span class="main-menu__icon"></span>
+                                </span>
+                        <span class="main-menu__label">МЕНЮ</span>
+                    </label>
+                </div>
+
+                <a href="#" class="header__logo">
+                    <img
+                            class="header__logo-img"
+                            alt="inspirion"
+                            src="{{ static("new/no-bg-logo.svg") }}"
+                            title=""
+                    >
+                </a>
+                <a class="header__enroll les-button transparent-to-white"
+                   target="blank"
+                   href="https://docs.google.com/forms/d/e/1FAIpQLSeOpWyhnHkLuWQiEYg9dBcM8cW834alk9Vtvtt72kM_LNPJYQ/viewform">
+                    Подать заявку
+                </a>
+            </header>
+            <div id="primary" class="content-area">
+                <main id="main" class="site-main">
+                    {{ sass("styles/new/slide.sass") }}
+                    {{ blocks("slides", "slides/templates/slide.html") }}
+                </main>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+<!-- Cookie Consent by TermsFeed https://www.TermsFeed.com -->
+
+<script type="text/javascript" src="https://www.termsfeed.com/public/cookie-consent/4.2.0/cookie-consent.js" charset="UTF-8"></script>
+
+
+<script type="text/javascript" charset="UTF-8">
+    document.addEventListener('DOMContentLoaded', function () {
+        cookieconsent.run({"notice_banner_type":"simple","consent_type":"express","palette":"light","language":"ru","page_load_consent_levels":["strictly-necessary"],"notice_banner_reject_button_hide":false,"preferences_center_close_button_hide":false,"page_refresh_confirmation_buttons":false,"website_name":"forest-school.am"});
+    });
+</script>
+
+<!-- Google -->
+<script type="text/plain" data-cookie-consent="tracking" async src="https://www.googletagmanager.com/gtag/js?id=G-H3HP8MVH42"></script>
+<script type="text/plain" data-cookie-consent="tracking">
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-H3HP8MVH42');
+</script>
+<!-- end of Google-->
+
+<!-- Goatcounter -->
+<script type="text/plain" data-cookie-consent="tracking" data-goatcounter="https://stats.forest-school.am/count"
+        async src="//gc.zgo.at/count.js"></script>
+<!-- end of Goatcounter-->
+
+<!-- Yandex -->
+<script type="text/plain" data-cookie-consent="tracking">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(99978701, "init", {
+          clickmap:true,
+          trackLinks:true,
+          accurateTrackBounce:true,
+          webvisor:true
+    });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/99978701" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- end of Yandex-->
+
+<noscript>Free cookie consent management tool by <a href="https://www.termsfeed.com/" rel="nofollow">TermsFeed</a></noscript>
+<!-- End Cookie Consent by TermsFeed https://www.TermsFeed.com -->
+
+
+</html>

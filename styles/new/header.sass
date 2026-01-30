@@ -1,0 +1,23 @@
+@use "size-breakpoints"
+@use "header-phone"
+@use "header-desktop"
+
+@include size-breakpoints.from("0", "desktop")
+  @include header-phone.sty()
+
+@include size-breakpoints.from("desktop", "inf")
+  @include header-desktop.sty()
+
+.header__enroll
+  transition-duration: 0.33s
+  background: var(--bg-color)
+  color: var(--fg-color)
+  font-size: 24px
+  text-transform: uppercase
+  font-weight: 700
+  line-height: 100%
+  padding: 15px 40px
+  border: 1px solid var(--br-color)
+  border-radius: 11px
+  text-align: center
+  height: fit-content

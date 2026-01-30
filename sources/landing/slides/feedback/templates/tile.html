@@ -6,7 +6,7 @@
         </div>
     </div>
     <div class="review">
-        <h4>{{ data.subtitle }}</h4>
+        {% if data.subtitle %}<h4>{{ data.subtitle }}</h4>{% endif %}
         <p>{{ data.content }}</p>
     </div>
 </div>

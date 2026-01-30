@@ -1,0 +1,28 @@
+@use "size-breakpoints"
+
+.feedback__main
+  --masonry--gap: 10px
+  --masonry--min-cols: var(--slider--visible-slides)
+  @include size-breakpoints.from("0", "tablet")
+    --masonry--max-height: var(--masonry--max-height--phone, 80vh)
+  @include size-breakpoints.from("tablet", "desktop")
+    --masonry--max-height: var(--masonry--max-height--tablet, 120vh)
+  @include size-breakpoints.from("desktop", "inf")
+    --masonry--max-height: var(--masonry--max-height--desktop, 160vh)
+
+.feedback__card
+  background-color: var(--card-bg-color)
+  color: var(--card-fg-color)
+  border-radius: 33px
+  padding: 33px
+  height: fit-content
+  font-weight: 700
+  line-height: 140%
+  font-size: 19px
+  min-width: 0
+
+.feedback__content
+  color: var(--card-fg-color)
+  font-size: 14px
+  font-weight: normal
+  text-align: left

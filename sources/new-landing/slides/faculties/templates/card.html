@@ -1,0 +1,13 @@
+{{ sass("styles/new/faculties.sass") }}
+
+<div class="faculty__card les-theme-border-alternating {{ data.colors }}">
+    <div class="faculty__icon">
+        <img src="{{ static(data.icon) }}" />
+    </div>
+    <div class="faculty__title">
+        {{ data.title }}
+    </div>
+    <div class="faculty__list">
+        {{ data.courses }}
+    </div>
+</div>
