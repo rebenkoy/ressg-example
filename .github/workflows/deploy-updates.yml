@@ -64,7 +64,7 @@ jobs:
         with:
           repo: rebenkoy/reSsg
       - name: Run reSsg
-        run: reSsg build --output=/tmp/output
+        run: reSsg build --output=/tmp/output --prefix {{ steps.vars.outputs.prefix }}
       - name: SFTP upload
         uses: Dylan700/sftp-upload-action@latest
         with:
