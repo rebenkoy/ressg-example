@@ -1,0 +1,11 @@
+{{ sass("styles/new/where_and_when.sass") }}
+<div class="waw__card">
+    <div class="waw__title">
+        {{ data.title }}
+    </div>
+    <img class="waw__img"
+         src="{{ static(data.img) }}">
+    <div class="waw__content">
+        {{ data.content }}
+    </div>
+</div>

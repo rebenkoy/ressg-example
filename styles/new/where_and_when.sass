@@ -1,0 +1,25 @@
+@use "card"
+
+.waw__card
+  @extend .abstract__card
+  display: grid
+  grid-row: span 3
+  row-gap: 0.2em
+  grid-template-rows: subgrid
+  align-items: center
+
+.waw__title
+  color: var(--card-fg-color)
+  font-size: 24px
+  font-weight: 700
+  line-height: 130%
+  justify-self: center
+
+.waw__img
+  width: 80px
+  justify-self: center
+
+.waw__content
+  font-size: 16px
+  font-weight: 400
+  line-height: 140%

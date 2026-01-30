@@ -1,0 +1,38 @@
+.partner__button
+  border-radius: 0.5rem
+  background-color: var(--card-bg-color)
+  color: var(--card-fg-color)
+  display: grid
+  text-decoration: none
+  padding: 0.5rem
+  grid-column-gap: 0.5rem
+  grid-template-areas: "logo header" "logo text"
+  grid-template-columns: auto 1fr
+
+  &:hover
+    background-color: var(--card-bg-color-hover)
+
+.partner__logo
+  align-content: center
+  grid-area: logo
+  --logo-height: 6rem
+  --logo-width: 6rem
+
+.partner__square-image 
+  height: var(--logo-height)
+  min-width: var(--logo-width)
+
+.partner__header 
+  font-size: 1.3rem
+  font-weight: 600
+  word-break: normal
+  white-space: normal
+  align-self: end
+
+.partner__text
+  font-size: 1rem
+  text-decoration: none
+  overflow: hidden
+  text-overflow: ellipsis
+  word-break: normal
+  white-space: normal

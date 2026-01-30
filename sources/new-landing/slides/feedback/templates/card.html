@@ -1,0 +1,23 @@
+{{ sass("styles/new/feedback.sass") }}
+<div class="feedback__card">
+    {% if data.title %}
+        <div class="feedback__title">
+            {{ data.title }}
+        </div>
+    {% endif %}
+    {% if data.subtitle %}
+        <div class="feedback__subtitle">
+            {{ data.subtitle }}
+        </div>
+    {% endif %}
+    {% if data.highlight %}
+        <div class="feedback__highlight">
+            {{ data.highlight }}
+        </div>
+    {% endif %}
+    {% if data.content %}
+        <div class="feedback__content">
+            {{ data.content }}
+        </div>
+    {% endif %}
+</div>

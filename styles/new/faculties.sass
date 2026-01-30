@@ -1,0 +1,40 @@
+.faculty__card
+  background-color: var(--les-color-white)
+  color: var(--les-color-black)
+  border-radius: 22px
+  border: 1px solid var(--border-color)
+  display: grid
+  grid-template-columns: auto 1fr
+  grid-template-areas: "icon title" "icon list"
+  margin-bottom: 10px
+  gap: 16px
+  padding: 16px
+  &:last-child
+    margin-bottom: 0
+
+.faculty__icon
+  grid-area: icon
+  display: flex
+  align-items: center
+  justify-content: center
+
+.faculty__title
+  grid-area: title
+  font-size: 24px
+  font-weight: 600
+  vertical-align: top
+
+.faculty__list
+  grid-area: list
+  &>ul
+    display: flex
+    flex-wrap: wrap
+    gap: 10px
+    margin: 0
+    &>li
+      font-size: 14px
+      font-weight: 400
+      border-radius: 11px
+      border: 1px solid var(--border-color)
+      padding: 8px 16px
+      display: inline-block

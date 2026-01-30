@@ -1,0 +1,22 @@
+$widths: (
+        "0": 0px,
+        "phone": 600px,
+        "tablet": 990px,
+        "desktop": 1296px,
+        "inf": 99999999px,
+);
+
+@mixin from($f, $t) {
+  // Use the map-get function to retrieve the width from the $widths map
+  $f-width: map-get($widths, $f);
+  $t-width: map-get($widths, $t);
+
+  @if $f-width and $t-width {
+    // Mobile-first approach: min-width
+    @media (min-width: $f-width) and (max-width: $t-width) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint `#{$f}` or `#{$t}` not found in $widths map.";
+  }
+}
