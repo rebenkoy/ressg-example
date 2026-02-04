@@ -1,9 +1,10 @@
-{{ sass("styles/new/colorcshemes.sass") }}
+{{ sass("common/styles/colorcshemes.sass") }}
 <!DOCTYPE html>
 <html lang="ru-RU">
 <head>
     <meta charset="UTF-8">
     <title>Летняя школа &quot;Лес&quot; &#8211; Образовательный лагерь для подростков 14-18 лет</title>
+    <link rel="icon" type="image/png" href="{{ static("new/Summer_School_Logo-01.svg") }}"/>
 
     <!-- This is actually needed -->
     <link href='https://fonts.googleapis.com/css?family=IBM Plex Sans' rel='stylesheet'>
@@ -16,7 +17,7 @@
 <div class="site-content-contain">
     <div id="content" class="site-content">
         <div class="w100">
-            {{ sass("styles/new/header.sass") }}
+            {{ sass("&/styles/header.sass") }}
             <header id="header">
                 <div class="main-menu__box">
                     {% for item in collected_array("menu") %}
@@ -52,8 +53,7 @@
             </header>
             <div id="primary" class="content-area">
                 <main id="main" class="site-main">
-                    {{ sass("styles/new/slide.sass") }}
-                    {{ blocks("slides", "slides/templates/slide.html") }}
+                    {{ blocks("slides", "/common/templates/slide.html") }}
                 </main>
             </div>
         </div>
