@@ -1,0 +1,41 @@
+@use "common/styles/size-breakpoints"
+
+.slide__overflow-img
+  @include size-breakpoints.from("0", "tablet")
+    --slide-overflow-img-overflow-top: var(--slide-overflow-img-phone-overflow-top, 0)
+    --slide-overflow-img-overflow-right: var(--slide-overflow-img-phone-overflow-right, 0)
+    --slide-overflow-img-overflow-bottom: var(--slide-overflow-img-phone-overflow-bottom, 0)
+    --slide-overflow-img-overflow-left: var(--slide-overflow-img-phone-overflow-left, 0)
+    --slide-overflow-img-width: var(--slide-overflow-img-phone-width, 0)
+    --slide-overflow-img-position-x: var(--slide-overflow-img-phone-position-x, 0)
+    --slide-overflow-img-position-y: var(--slide-overflow-img-phone-position-y, 0)
+  @include size-breakpoints.from("tablet", "desktop")
+    --slide-overflow-img-overflow-top: var(--slide-overflow-img-tablet-overflow-top, 0)
+    --slide-overflow-img-overflow-right: var(--slide-overflow-img-tablet-overflow-right, 0)
+    --slide-overflow-img-overflow-bottom: var(--slide-overflow-img-tablet-overflow-bottom, 0)
+    --slide-overflow-img-overflow-left: var(--slide-overflow-img-tablet-overflow-left, 0)
+    --slide-overflow-img-width: var(--slide-overflow-img-tablet-width, 0)
+    --slide-overflow-img-position-x: var(--slide-overflow-img-tablet-position-x, 0)
+    --slide-overflow-img-position-y: var(--slide-overflow-img-tablet-position-y, 0)
+  @include size-breakpoints.from("desktop", "inf")
+    --slide-overflow-img-overflow-top: var(--slide-overflow-img-desktop-overflow-top, 0)
+    --slide-overflow-img-overflow-right: var(--slide-overflow-img-desktop-overflow-right, 0)
+    --slide-overflow-img-overflow-bottom: var(--slide-overflow-img-desktop-overflow-bottom, 0)
+    --slide-overflow-img-overflow-left: var(--slide-overflow-img-desktop-overflow-left, 0)
+    --slide-overflow-img-width: var(--slide-overflow-img-desktop-width, 0)
+    --slide-overflow-img-position-x: var(--slide-overflow-img-desktop-position-x, 0)
+    --slide-overflow-img-position-y: var(--slide-overflow-img-desktop-position-y, 0)
+  position: relative
+  margin: var(--slide-overflow-img-overflow-top, 0) var(--slide-overflow-img-overflow-right, 0) var(--slide-overflow-img-overflow-bottom, 0) var(--slide-overflow-img-overflow-left, 0)
+  box-sizing: border-box
+  min-height: 0
+  min-width: 0
+  overflow: clip
+
+.overflow-img__container
+  display: flex
+  overflow: visible
+  justify-content: center
+  &>img
+    object-position: var(--slide-overflow-img-position-x, 0) var(--slide-overflow-img-position-y, 0)
+    width: var(--slide-overflow-img-width)

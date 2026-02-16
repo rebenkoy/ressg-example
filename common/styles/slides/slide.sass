@@ -1,0 +1,43 @@
+@use "common/styles/size-breakpoints"
+@use "common/styles/clear_default"
+
+@use "constants"
+
+.slide
+  @include size-breakpoints.from("0", "tablet")
+    --grid-template-areas: var(--grid-template-areas-phone, var(--grid-template-areas-all))
+  @include size-breakpoints.from("tablet", "desktop")
+    --grid-template-areas: var(--grid-template-areas-tablet, var(--grid-template-areas-all))
+  @include size-breakpoints.from("desktop", "inf")
+    --grid-template-areas: var(--grid-template-areas-desktop, var(--grid-template-areas-all))
+  grid-template-areas: var(--grid-template-areas)
+  background-color: var(--base-bg-color)
+  color: var(--base-fg-color)
+  display: grid
+  padding: constants.$slide-v-padding constants.$slide-h-padding
+  gap: 1.5em
+  grid-auto-columns: 1fr
+  grid-auto-rows: max-content
+
+.slide__element
+  grid-area: var(--grid-area)
+
+.small-vertical-padding
+  padding-bottom: constants.$slide-v-padding / 3
+  padding-top: constants.$slide-v-padding / 3
+
+.align-center
+  justify-self: center
+  align-self: center
+.align-left
+  justify-self: left
+  align-self: center
+.align-right
+  justify-self: right
+  align-self: center
+
+.slide--center-all
+  &>*
+    justify-self: center
+  &>.slide__background
+    justify-self: normal

@@ -1,5 +1,5 @@
 {
-  "image": "ghcr.io/rebenkoy/ressg:master",
+  "image": "ghcr.io/rebenkoy/ressg:latest",
   "customizations": {
     "vscode": {
       "extensions": [

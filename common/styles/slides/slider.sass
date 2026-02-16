@@ -1,0 +1,63 @@
+@use "common/styles/size-breakpoints"
+
+.slide__slider
+  --slider--gap: 10px
+  display: grid
+
+  grid-row-gap: var(--slider--gap)
+
+  @include size-breakpoints.from("0", "tablet")
+    --slider--visible-slides: var(--slider-visible-slides-phone, 1)
+  @include size-breakpoints.from("tablet", "desktop")
+    --slider--visible-slides: var(--slider-visible-slides-tablet, 2)
+  @include size-breakpoints.from("desktop", "inf")
+    --slider--visible-slides: var(--slider-visible-slides-desktop, 3)
+.slider__content
+  /* Math... */
+  --slider--slide-width: calc((100% - (var(--slider--visible-slides) - 1) * var(--slider--gap)) / var(--slider--visible-slides))
+
+  /* Put it all together! */
+  display: grid
+  grid-auto-flow: column
+  grid-auto-columns: var(--slider--slide-width)
+  grid-gap: var(--slider--gap)
+  overflow-x: scroll
+  overflow-y: hidden
+  list-style: none
+  scroll-snap-type: x mandatory
+  overscroll-behavior: auto
+  scrollbar-width: none
+  margin: 0
+
+.slider__controls
+  padding-top: var(--slider-masonry--gap)
+  display: flex
+  justify-content: center
+
+.slider__button
+  color: var(--card-fg-color)
+  background-color: var(--card-bg-color)
+  margin-right: calc(var(--slider--gap) / 2)
+  margin-left: calc(var(--slider--gap) / 2)
+  width: 3em
+  height: 3em
+  border-radius: 50%
+  border: none
+  cursor: pointer
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  font-weight: bold
+  &:hover
+    background-color: var(--card-bg-color-hover)
+    color: var(--card-fg-color-hover)
+
+.slider__button--clicked
+  &:after
+    content: ''
+    display: block
+    background-color: var(--card-fg-color)
+    height: 4px
+    width: 4px
+    border-radius: 50%
