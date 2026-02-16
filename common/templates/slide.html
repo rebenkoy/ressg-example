@@ -1,35 +1,52 @@
 {{ sass("common/styles/slide.sass") }}
 
 <div {% if data.id %}id="{{ data.id }}"{{ push_to_array("menu", data.id) }}{% endif %}
-        class="slide les-theme-card-beige {{ data.theme }} " style='
-    --grid-template-areas-all: {{ data.grid }};
-    {% if data.grid.phone %}--grid-template-areas-phone: {{ data.grid.phone }}{% endif %};
-    {% if data.grid.tablet %}--grid-template-areas-tablet: {{ data.grid.tablet }}{% endif %};
-    {% if data.grid.desktop %}--grid-template-areas-desktop: {{ data.grid.desktop }}{% endif %};
-    {% if data.styles %}
-    {% for k in data.styles %}
-    {{ k }}: {{ data.styles[k] }};
-    {% endfor %}
-    {% endif %}
+    class="slide les-theme-card-beige {{ data.theme }}"
+    style='
+        --grid-template-areas-all: {{ data.grid }};
+        {% if data.grid.phone %}--grid-template-areas-phone: {{ data.grid.phone }}{% endif %};
+        {% if data.grid.tablet %}--grid-template-areas-tablet: {{ data.grid.tablet }}{% endif %};
+        {% if data.grid.desktop %}--grid-template-areas-desktop: {{ data.grid.desktop }}{% endif %};
+
+        {% if data.styles %}
+        {% for k in data.styles %}
+        {{ k }}: {{ data.styles[k] }};
+        {% endfor %}
+        {% endif %}
     '>
+
     {% if data.background %}
-    <div class="slide__background" style="background-image: url({{ static(data.background) }});"></div>
+    <div
+        class="slide__element slide__background {{ data.background.theme }}"
+        style="background-image: url({{ static(data.background) }});">
+
+    </div>
     {% endif %}
 
     {% if data.header %}
     {% set collection = data("header") %}
     {% set len = collection | length %}
     {% set count = 1 %}
-    {% for header in collection %}
-    <h{% if header.level %}{{ header.level }}{% else %}1{% endif%} class="slide__header" style='--grid-area: header{% if len != 1 %}-{{ count }}{% endif %}'>
-        {% if header.preimage %}
-        <img src="{{ static(header.preimage) }}">
+    {% for element in collection %}
+    <h{% if element.level %}{{ element.level }}{% else %}1{% endif%}
+        class="slide__element slide__header {{ element.theme }}"
+        style='
+            --grid-area: header{% if len != 1 %}-{{ count }}{% endif %}
+            {% if element.styles %}
+            {% for k in element.styles %}
+            {{ k }}: {{ element.styles[k] }};
+            {% endfor %}
+            {% endif %}
+        '>
+
+        {% if element.preimage %}
+        <img src="{{ static(element.preimage) }}">
         {% endif %}
-        <span>{{ header }}</span>
-        {% if header.postimage %}
-            <img src="{{ static(header.postimage) }}">
+        <span>{{ element }}</span>
+        {% if element.postimage %}
+            <img src="{{ static(element.postimage) }}">
         {% endif %}
-    </h{% if header.level %}{{ header.level }}{% else %}1{% endif%}>
+    </h{% if element.level %}{{ element.level }}{% else %}1{% endif%}>
     {% set count = count + 1 %}
     {% endfor %}
     {% endif %}
@@ -38,9 +55,18 @@
     {% set collection = data("content") %}
     {% set len = collection | length %}
     {% set count = 1 %}
-    {% for content in collection %}
-    <div class="slide__content" style='--grid-area: content{% if len != 1 %}-{{ count }}{% endif %}'>
-        {{ content }}
+    {% for element in collection %}
+    <div
+        class="slide__element slide__content {{ element.theme }}"
+        style='
+            --grid-area: content{% if len != 1 %}-{{ count }}{% endif %}
+            {% if element.styles %}
+            {% for k in element.styles %}
+            {{ k }}: {{ element.styles[k] }};
+            {% endfor %}
+            {% endif %}
+        '>
+        {{ element }}
     </div>
     {% set count = count + 1 %}
     {% endfor %}
@@ -50,12 +76,20 @@
     {% set collection = data("img") %}
     {% set len = collection | length %}
     {% set count = 1 %}
-    {% for img in collection %}
-    <img  src="{{ static(img) }}" class="slide__img" style='
+    {% for element in collection %}
+    <img
+        src="{{ static(element) }}"
+        class="slide__element slide__img {{ element.theme }}"
+        style='
             --grid-area: img{% if len != 1 %}-{{ count }}{% endif %};
-            {% if img.width %}--img-width: {{ img.widht }};{% endif %}
-            {% if img.height %}--img-height: {{ img.height }};{% endif %}
-            '>
+            {% if element.width %}--img-width: {{ element.widht }};{% endif %}
+            {% if element.height %}--img-height: {{ element.height }};{% endif %}
+            {% if element.styles %}
+            {% for k in element.styles %}
+            {{ k }}: {{ element.styles[k] }};
+            {% endfor %}
+            {% endif %}
+        '>
     {% set count = count + 1 %}
     {% endfor %}
     {% endif %}
@@ -64,9 +98,18 @@
     {% set collection = data("disclaimer") %}
     {% set len = collection | length %}
     {% set count = 1 %}
-    {% for disclaimer in collection %}
-    <div class="slide__disclaimer" style='--grid-area: disclaimer{% if len != 1 %}-{{ count }}{% endif %}'>
-        {{ disclaimer }}
+    {% for element in collection %}
+    <div
+        class="slide__element slide__disclaimer {{ element.theme }}"
+        style='
+            --grid-area: disclaimer{% if len != 1 %}-{{ count }}{% endif %};
+            {% if element.styles %}
+            {% for k in element.styles %}
+            {{ k }}: {{ element.styles[k] }};
+            {% endfor %}
+            {% endif %}
+        '>
+        {{ element }}
     </div>
     {% set count = count + 1 %}
     {% endfor %}
@@ -76,10 +119,19 @@
     {% set collection = data("card") %}
     {% set len = collection | length %}
     {% set count = 1 %}
-    {% for card in collection %}
-    <div class="slide__card" style='--grid-area: card{% if len != 1 %}-{{ count }}{% endif %}'>
+    {% for element in collection %}
+    <div
+        class="slide__element slide__card {{ element.theme }}"
+        style='
+            --grid-area: card{% if len != 1 %}-{{ count }}{% endif %};
+            {% if element.styles %}
+            {% for k in element.styles %}
+            {{ k }}: {{ element.styles[k] }};
+            {% endfor %}
+            {% endif %}
+        '>
         <div class="card__content">
-            {{ card }}
+            {{ element }}
         </div>
     </div>
     {% set count = count + 1 %}
@@ -90,16 +142,18 @@
     {% set collection = data("cards") %}
     {% set len = collection | length %}
     {% set count = 1 %}
-    {% for cards in collection %}
-    <div class="slide__cards" style='
+    {% for element in collection %}
+    <div
+        class="slide__element slide__cards {{ element.theme }}"
+        style='
             --grid-area: cards{% if len != 1 %}-{{ count }}{% endif %};
-            {% if cards.cols %}
-            {% if cards.cols.desktop %}--slide-cards-cols-desktop: {{ cards.cols.desktop }};{% endif %}
-            {% if cards.cols.tablet %}--slide-cards-cols-tablet: {{ cards.cols.tablet }};{% endif %}
-            {% if cards.cols.phone %}--slide-cards-cols-phone: {{ cards.cols.phone }};{% endif %}
+            {% if element.cols %}
+            {% if element.cols.desktop %}--slide-cards-cols-desktop: {{ element.cols.desktop }};{% endif %}
+            {% if element.cols.tablet %}--slide-cards-cols-tablet: {{ element.cols.tablet }};{% endif %}
+            {% if element.cols.phone %}--slide-cards-cols-phone: {{ element.cols.phone }};{% endif %}
             {% endif %}
             '>
-        {{ blocks(cards, cards.template) }}
+        {{ blocks(element, element.template) }}
     </div>
     {% set count = count + 1 %}
     {% endfor %}
@@ -109,9 +163,21 @@
     {% set collection = data("button") %}
     {% set len = collection | length %}
     {% set count = 1 %}
-    {% for button in collection %}
-    <a target="blank" href="{{ button.link }}" class="slide__button {{ button.theme }}" style='--grid-area: button{% if len != 1 %}-{{ count }}{% endif %}'>
-        {{ button }}
+    {% for element in collection %}
+    <a
+        target="blank"
+        href="{{ element.link }}"
+        class="slide__element slide__button {{ element.theme }}"
+        style='
+            --grid-area: button{% if len != 1 %}-{{ count }}{% endif %};
+
+            {% if element.styles %}
+            {% for k in element.styles %}
+            {{ k }}: {{ element.styles[k] }};
+            {% endfor %}
+            {% endif %}
+        '>
+        {{ element }}
     </a>
     {% set count = count + 1 %}
     {% endfor %}
@@ -121,50 +187,59 @@
     {% set collection = data("overflow-img") %}
     {% set len = collection | length %}
     {% set count = 1 %}
-    {% for img in collection %}
-    <div class="slide__overflow-img" style='--grid-area: overflow-img{% if len != 1 %}-{{ count }}{% endif %};
-            {% if img.phone %}
-            {% if img.phone.width %}--slide-overflow-img-phone-width: {{ img.phone.width }}{% endif %};
-            {% if img.phone.overflow %}
-            {% if img.phone.overflow.left %}--slide-overflow-img-phone-overflow-left: -{{ img.phone.overflow.left }}{% endif %};
-            {% if img.phone.overflow.top %}--slide-overflow-img-phone-overflow-top: -{{ img.phone.overflow.top }}{% endif %};
-            {% if img.phone.overflow.right %}--slide-overflow-img-phone-overflow-right: -{{ img.phone.overflow.right }}{% endif %};
-            {% if img.phone.overflow.bottom %}--slide-overflow-img-phone-overflow-bottom: -{{ img.phone.overflow.bottom }}{% endif %};
+    {% for element in collection %}
+    <div
+        class="slide__element slide__overflow-img {{ element.theme }}"
+        style='
+            --grid-area: overflow-img{% if len != 1 %}-{{ count }}{% endif %};
+            {% if element.phone %}
+            {% if element.phone.width %}--slide-overflow-img-phone-width: {{ element.phone.width }}{% endif %};
+            {% if element.phone.overflow %}
+            {% if element.phone.overflow.left %}--slide-overflow-img-phone-overflow-left: -{{ element.phone.overflow.left }}{% endif %};
+            {% if element.phone.overflow.top %}--slide-overflow-img-phone-overflow-top: -{{ element.phone.overflow.top }}{% endif %};
+            {% if element.phone.overflow.right %}--slide-overflow-img-phone-overflow-right: -{{ element.phone.overflow.right }}{% endif %};
+            {% if element.phone.overflow.bottom %}--slide-overflow-img-phone-overflow-bottom: -{{ element.phone.overflow.bottom }}{% endif %};
             {% endif %}
-            {% if img.phone.position %}
-            {% if img.phone.position.x %}--slide-overflow-img-phone-position-x: {{ img.phone.position.x }}{% endif %};
-            {% if img.phone.position.y %}--slide-overflow-img-phone-position-y: {{ img.phone.position.y }}{% endif %};
-            {% endif %}
-            {% endif %}
-            {% if img.tablet %}
-            {% if img.tablet.width %}--slide-overflow-img-tablet-width: {{ img.tablet.width }}{% endif %};
-            {% if img.tablet.overflow %}
-            {% if img.tablet.overflow.left %}--slide-overflow-img-tablet-overflow-left: -{{ img.tablet.overflow.left }}{% endif %};
-            {% if img.tablet.overflow.top %}--slide-overflow-img-tablet-overflow-top: -{{ img.tablet.overflow.top }}{% endif %};
-            {% if img.tablet.overflow.right %}--slide-overflow-img-tablet-overflow-right: -{{ img.tablet.overflow.right }}{% endif %};
-            {% if img.tablet.overflow.bottom %}--slide-overflow-img-tablet-overflow-bottom: -{{ img.tablet.overflow.bottom }}{% endif %};
-            {% endif %}
-            {% if img.tablet.position %}
-            {% if img.tablet.position.x %}--slide-overflow-img-tablet-position-x: {{ img.tablet.position.x }}{% endif %};
-            {% if img.tablet.position.y %}--slide-overflow-img-tablet-position-y: {{ img.tablet.position.y }}{% endif %};
+            {% if element.phone.position %}
+            {% if element.phone.position.x %}--slide-overflow-img-phone-position-x: {{ element.phone.position.x }}{% endif %};
+            {% if element.phone.position.y %}--slide-overflow-img-phone-position-y: {{ element.phone.position.y }}{% endif %};
             {% endif %}
             {% endif %}
-            {% if img.desktop %}
-            {% if img.desktop.width %}--slide-overflow-img-desktop-width: {{ img.desktop.width }}{% endif %};
-            {% if img.desktop.overflow %}
-            {% if img.desktop.overflow.left %}--slide-overflow-img-desktop-overflow-left: -{{ img.desktop.overflow.left }}{% endif %};
-            {% if img.desktop.overflow.top %}--slide-overflow-img-desktop-overflow-top: -{{ img.desktop.overflow.top }}{% endif %};
-            {% if img.desktop.overflow.right %}--slide-overflow-img-desktop-overflow-right: -{{ img.desktop.overflow.right }}{% endif %};
-            {% if img.desktop.overflow.bottom %}--slide-overflow-img-desktop-overflow-bottom: -{{ img.desktop.overflow.bottom }}{% endif %};
+            {% if element.tablet %}
+            {% if element.tablet.width %}--slide-overflow-img-tablet-width: {{ element.tablet.width }}{% endif %};
+            {% if element.tablet.overflow %}
+            {% if element.tablet.overflow.left %}--slide-overflow-img-tablet-overflow-left: -{{ element.tablet.overflow.left }}{% endif %};
+            {% if element.tablet.overflow.top %}--slide-overflow-img-tablet-overflow-top: -{{ element.tablet.overflow.top }}{% endif %};
+            {% if element.tablet.overflow.right %}--slide-overflow-img-tablet-overflow-right: -{{ element.tablet.overflow.right }}{% endif %};
+            {% if element.tablet.overflow.bottom %}--slide-overflow-img-tablet-overflow-bottom: -{{ element.tablet.overflow.bottom }}{% endif %};
             {% endif %}
-            {% if img.desktop.position %}
-            {% if img.desktop.position.x %}--slide-overflow-img-desktop-position-x: {{ img.desktop.position.x }}{% endif %};
-            {% if img.desktop.position.y %}--slide-overflow-img-desktop-position-y: {{ img.desktop.position.y }}{% endif %};
+            {% if element.tablet.position %}
+            {% if element.tablet.position.x %}--slide-overflow-img-tablet-position-x: {{ element.tablet.position.x }}{% endif %};
+            {% if element.tablet.position.y %}--slide-overflow-img-tablet-position-y: {{ element.tablet.position.y }}{% endif %};
             {% endif %}
             {% endif %}
-                    '>
+            {% if element.desktop %}
+            {% if element.desktop.width %}--slide-overflow-img-desktop-width: {{ element.desktop.width }}{% endif %};
+            {% if element.desktop.overflow %}
+            {% if element.desktop.overflow.left %}--slide-overflow-img-desktop-overflow-left: -{{ element.desktop.overflow.left }}{% endif %};
+            {% if element.desktop.overflow.top %}--slide-overflow-img-desktop-overflow-top: -{{ element.desktop.overflow.top }}{% endif %};
+            {% if element.desktop.overflow.right %}--slide-overflow-img-desktop-overflow-right: -{{ element.desktop.overflow.right }}{% endif %};
+            {% if element.desktop.overflow.bottom %}--slide-overflow-img-desktop-overflow-bottom: -{{ element.desktop.overflow.bottom }}{% endif %};
+            {% endif %}
+            {% if element.desktop.position %}
+            {% if element.desktop.position.x %}--slide-overflow-img-desktop-position-x: {{ element.desktop.position.x }}{% endif %};
+            {% if element.desktop.position.y %}--slide-overflow-img-desktop-position-y: {{ element.desktop.position.y }}{% endif %};
+            {% endif %}
+            {% endif %}
+
+            {% if element.styles %}
+            {% for k in element.styles %}
+            {{ k }}: {{ element.styles[k] }};
+            {% endfor %}
+            {% endif %}
+        '>
         <div class="overflow-img__container">
-            <img src="{{ static(data["overflow-img"]) }}">
+            <img src="{{ static(element) }}">
         </div>
     </div>
     {% set count = count + 1 %}
@@ -175,10 +250,20 @@
     {% set collection = data("subslides") %}
     {% set len = collection | length %}
     {% set count = 1 %}
-    {% for subslides in collection %}
-    {% if subslides and subslides.template %}
-    <div class="slide__subslides" style='--grid-area: subslides{% if len != 1 %}-{{ count }}{% endif %}'>
-        {{ blocks(subslides, subslides.template) }}
+    {% for element in collection %}
+    {% if element and element.template %}
+    <div
+        class="slide__element slide__subslides {{ element.theme }}"
+        style='
+            --grid-area: subslides{% if len != 1 %}-{{ count }}{% endif %};
+
+            {% if element.styles %}
+            {% for k in element.styles %}
+            {{ k }}: {{ element.styles[k] }};
+            {% endfor %}
+            {% endif %}
+        '>
+        {{ blocks(element, element.template) }}
     </div>
     {% endif %}
     {% set count = count + 1 %}
@@ -189,20 +274,29 @@
     {% set collection = data("slider") %}
     {% set len = collection | length %}
     {% set count = 1 %}
-    {% for slider in collection %}
-    {% if slider and slider.template %}
-    <div class="slide__slider" data-slider="active" style='
+    {% for element in collection %}
+    {% if element and element.template %}
+    <div
+        class="slide__element slide__slider {{ element.theme }}"
+        data-slider="active"
+        style='
             --grid-area: slider{% if len != 1 %}-{{ count }}{% endif %};
-            {% if slider.count %}
-            {% if slider.count.phone %}--slider-visible-slides-phone: {{ slider.count.phone }};{% endif %}
-            {% if slider.count.tablet %}--slider-visible-slides-tablet: {{ slider.count.tablet }};{% endif %}
-            {% if slider.count.desktop %}--slider-visible-slides-desktop: {{ slider.count.desktop }};{% endif %}
+            {% if element.count %}
+            {% if element.count.phone %}--slider-visible-slides-phone: {{ element.count.phone }};{% endif %}
+            {% if element.count.tablet %}--slider-visible-slides-tablet: {{ element.count.tablet }};{% endif %}
+            {% if element.count.desktop %}--slider-visible-slides-desktop: {{ element.count.desktop }};{% endif %}
             {% endif %}
-            '>
-        <div class="slider__content{% if slider.class %}{% for c in slider("class") %} {{ c }}{% endfor %}{% endif %}"
-        {% if slider.attrs %}{% for k in slider.attrs %}{{ k }}="{{ slider.attrs[k] }}"{% endfor %}{% endif %}
+
+            {% if element.styles %}
+            {% for k in element.styles %}
+            {{ k }}: {{ element.styles[k] }};
+            {% endfor %}
+            {% endif %}
+        '>
+        <div class="slider__content{% if element.class %}{% for c in element("class") %} {{ c }}{% endfor %}{% endif %}"
+        {% if element.attrs %}{% for k in element.attrs %}{{ k }}="{{ element.attrs[k] }}"{% endfor %}{% endif %}
         >
-            {{ blocks(slider, slider.template) }}
+            {{ blocks(element, element.template) }}
         </div>
         <div class="slider__controls">
         </div>
@@ -217,9 +311,22 @@
     {% set collection = data("link") %}
     {% set len = collection | length %}
     {% set count = 1 %}
-    {% for link in collection %}
-    <a href="{{ link.url }}" class="slide__link" style='--grid-area: link{% if len != 1 %}-{{ count }}{% endif %}' {% if link.onclick %}onclick="{{ link.onclick }}"{% endif %}>
-        {{ link }}
+    {% for element in collection %}
+    <a
+        href="{{ element.url }}"
+        class="slide__element slide__link {{ element.theme }}"
+        style='
+            --grid-area: link{% if len != 1 %}-{{ count }}{% endif %};
+
+            {% if element.styles %}
+            {% for k in element.styles %}
+            {{ k }}: {{ element.styles[k] }};
+            {% endfor %}
+            {% endif %}
+            '
+        {% if element.onclick %}onclick="{{ element.onclick }}"{% endif %}
+        >
+        {{ element }}
     </a>
     {% set count = count + 1 %}
     {% endfor %}

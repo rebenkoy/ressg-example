@@ -1,0 +1,14 @@
+@use "common/styles/size-breakpoints"
+@use "constants"
+
+.slide__cards
+  @include size-breakpoints.from("0", "tablet")
+    --slide-cards-num-cols: var(--slide-cards-cols-phone, 1)
+  @include size-breakpoints.from("tablet", "desktop")
+    --slide-cards-num-cols: var(--slide-cards-cols-tablet, 2)
+  @include size-breakpoints.from("desktop", "inf")
+    --slide-cards-num-cols: var(--slide-cards-cols-desktop, 4)
+
+  display: grid
+  grid-template-columns: repeat(var(--slide-cards-num-cols), minmax(constants.$cards-min-width, 1fr))
+  gap: 1rem
